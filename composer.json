@@ -1,0 +1,23 @@
+{
+    "name": "koloda/fl-todo",
+    "description": "Frameworkless todo app with administration functionality.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "koloda",
+            "email": "koloda90@gmail.com"
+        }
+    ],
+    "require": {
+        "pecee/simple-router": "4.2.0.6",
+        "php-activerecord/php-activerecord": "^1.2",
+        "gabordemooij/redbean": "^5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "\\app\\": "./src",
+            "\\app\\controllers\\": "./src/controllers"
+        }
+    }
+}
