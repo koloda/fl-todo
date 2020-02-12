@@ -3,13 +3,13 @@
 namespace app\controllers;
 
 use app\models\Todo;
+use Pecee\SimpleRouter\Exceptions\NotFoundHttpException;
+use Pecee\SimpleRouter\SimpleRouter;
 use RedBeanPHP\R;
 
 class TodoController extends BaseController
 {
     const PER_PAGE = 3;
-
-    private $errorsContainer = null;
 
     public function list()
     {
@@ -57,29 +57,43 @@ class TodoController extends BaseController
 
     public function create()
     {
-        $data = [];
-        if ($this->errorsContainer) {
-            $data['errors'] = $this->errorsContainer;
-        }
+        $title = 'Update Task';
 
-        return $this->render('form', $data);
+        return $this->render('form', compact('title'));
     }
 
     public function update(int $id)
     {
-        // $t
+        if (!IS_ADMIN) {
+            return redirect('/auth/login');
+        }
+
+        $title = 'Update Task';
+        $todo = R::load('todo', $id);
+
+        if (!$todo) {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->render('form', compact('todo', 'title'));
     }
 
     public function store(int $id = null)
     {
+        if ($id && !IS_ADMIN) {
+            return redirect('/auth/login');
+        }
+
+        SimpleRouter::router()->getCsrfVerifier()->handle(request());
+
         if (Todo::fromInput($id) !== true) {
             if ($id) {
-                redirect('/todo/update/' . $id);
+                return redirect('/todo/update/' . $id);
             } else {
-                redirect('/todo/create');
+                return redirect('/todo/create');
             }
-        } else {
-            redirect('/');
         }
+
+        return redirect('/');
     }
 }

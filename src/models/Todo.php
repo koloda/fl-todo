@@ -28,6 +28,8 @@ class Todo extends SimpleModel
 
         if (!$id) {
             $todo = R::dispense('todo');
+            $todo->done = 0;
+            $todo->updated = 0;
         } else {
             $todo = R::load('todo', $id);
 
@@ -35,7 +37,7 @@ class Todo extends SimpleModel
                 throw new NotFoundHttpException();
             }
 
-            $successMsg = 'Task created';
+            $successMsg = 'Task updated';
         }
 
         $data = [
@@ -45,6 +47,7 @@ class Todo extends SimpleModel
         ];
 
         $data = array_map('trim', $data);
+        $data = array_map('strip_tags', $data);
 
         //validation
         $errors = [];
@@ -62,6 +65,16 @@ class Todo extends SimpleModel
         }
 
         if (!count($errors)) {
+            if (IS_ADMIN) {
+                if (input('done', false)) {
+                    $todo->done = 1;
+                }
+
+                if ($todo->title != $data['title'] && $id) {
+                    $todo->updated = 1;
+                }
+            }
+
             foreach ($data as $key => $value) {
                 $todo->$key = $value;
             }

@@ -14,7 +14,12 @@
                 </a>
             </div>
             <div class="col-md-6 text-right">
-                <a class="btn btn-outline-primary" href="/login">Sign in as Administrator</a>
+                <?php if (IS_ADMIN): ?>
+                    You are logged in as Administrator
+                    <a class="btn btn-outline-primary" href="/auth/logout">Logout</a>
+                <?php else: ?>
+                    <a class="btn btn-outline-primary" href="/auth/login">Sign in as Administrator</a>
+                <?php endif; ?>
             </div>
     </header>
 

@@ -1,5 +1,6 @@
 <?php
 
+use Pecee\Http\Middleware\BaseCsrfVerifier;
 use Pecee\Http\Request;
 use Pecee\SimpleRouter\Exceptions\NotFoundHttpException;
 use Pecee\SimpleRouter\SimpleRouter;
@@ -25,5 +26,11 @@ SimpleRouter::get('/todo', 'TodoController@list');
 SimpleRouter::get('/todo/create', 'TodoController@create');
 SimpleRouter::get('/todo/update/{id}', 'TodoController@update');
 SimpleRouter::post('/todo/store/{id?}', 'TodoController@store');
+
+SimpleRouter::post('/auth/login', 'AuthController@login');
+SimpleRouter::get('/auth/login', 'AuthController@form');
+SimpleRouter::get('/auth/logout', 'AuthController@logout');
+
+SimpleRouter::router()->setCsrfVerifier(new BaseCsrfVerifier);
 
 SimpleRouter::start();

@@ -47,6 +47,9 @@
                 </span>
             </a>
             </th>
+            <?php if (IS_ADMIN): ?>
+                <th></th>
+            <?php endif; ?>
         </tr>
     </thead>
     <tbody>
@@ -67,9 +70,14 @@
                 <?php endif; ?>
 
                 <?php if ($todo->updated): ?>
-                    <div class="badge badge-primary">Updated</div>
+                    <div class="badge badge-primary">Updated by Admin</div>
                 <?php endif; ?>
             </td>
+            <?php if (IS_ADMIN): ?>
+                <td>
+                    <a href="/todo/update/<?= $todo->id ?>">Edit</a>
+                </td>
+            <?php endif; ?>
         </tr>
     <?php endforeach; ?>
     </tbody>

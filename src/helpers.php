@@ -90,7 +90,7 @@ function csrf_token(): ?string
 function form_val($model, $attr)
 {
     if ($model && is_object($model) && isset($model->$attr)) {
-        return $attr;
+        return $model->$attr;
     }
 
     if (isset($_SESSION['formData']) && isset($_SESSION['formData'][$attr])) {
