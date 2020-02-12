@@ -26,5 +26,4 @@ SimpleRouter::get('/todo/create', 'TodoController@create');
 SimpleRouter::get('/todo/update/{id}', 'TodoController@update');
 SimpleRouter::post('/todo/store/{id?}', 'TodoController@store');
 
-
 SimpleRouter::start();

@@ -7,23 +7,22 @@
     <link rel="stylesheet" href="/assets/index.css">
 </head>
 <body>
-    <header>
-        <div class="row">
+    <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
             <div class="col-md-6">
-                <h1>Todo App</h1>
+                <a href="/" class="navbar-brand">
+                    Todo App
+                </a>
             </div>
             <div class="col-md-6 text-right">
-                <a href="/login">Sign in as Administrator</a>
+                <a class="btn btn-outline-primary" href="/login">Sign in as Administrator</a>
             </div>
-        </div>
     </header>
 
     <div id="content" class="container">
-        <div class="col-md-6 col-md-offset-3">
-        <?php
-            require $viewFile;
-        ?>
-        </div>
+    <?php
+        require '_alerts.php';
+        require $viewFile;
+    ?>
     </div>
 </body>
 </html>

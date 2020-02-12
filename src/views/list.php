@@ -1,6 +1,8 @@
-<h2>Tasks</h2>
+<h2>
+    Tasks <i>(<?= $data['total'] ?>)</i>
+</h2>
 
-<table class="table">
+<table class="table table-borderless">
     <thead>
         <tr>
             <th>
@@ -88,4 +90,13 @@
             </a>
         <?php endif; ?>
     </div>
+</div>
+
+
+<div class="col text-center">
+    <hr>
+    <br>
+    <a href="<?= url('/todo/create') ?>" class="btn btn-outline-success">
+        + Add Task
+    </a>
 </div>

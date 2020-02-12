@@ -9,6 +9,8 @@ class TodoController extends BaseController
 {
     const PER_PAGE = 3;
 
+    private $errorsContainer = null;
+
     public function list()
     {
 
@@ -50,26 +52,34 @@ class TodoController extends BaseController
             }
         }
 
-        return $this->render('list', compact('todos', 'next', 'prev', 'sortings'));
+        return $this->render('list', compact('todos', 'next', 'prev', 'sortings', 'total'));
     }
 
     public function create()
     {
-        /** @var \app\models\Todo $todo */
-        $todo = R::dispense('todo');
-        $todo->author = 'akoloda';
-        $todo->email = 'akoloda@sdf.ff';
-        $todo->title = 'ss  sdjf sidoufsdufh lskdfhlksjdhf ksldfh skdfhslkdfhdfsdf ser ter';
-        $todo->done = 0;
-        $todo->updated = 0;
+        $data = [];
+        if ($this->errorsContainer) {
+            $data['errors'] = $this->errorsContainer;
+        }
 
-        var_dump(R::store($todo));
-
+        return $this->render('form', $data);
     }
 
     public function update(int $id)
     {
-        $todo = new Todo;
-        Todo::fromInput(request()->getInputHandler(), $todo);
+        // $t
+    }
+
+    public function store(int $id = null)
+    {
+        if (Todo::fromInput($id) !== true) {
+            if ($id) {
+                redirect('/todo/update/' . $id);
+            } else {
+                redirect('/todo/create');
+            }
+        } else {
+            redirect('/');
+        }
     }
 }

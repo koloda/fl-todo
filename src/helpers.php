@@ -86,3 +86,29 @@ function csrf_token(): ?string
 
     return null;
 }
+
+function form_val($model, $attr)
+{
+    if ($model && is_object($model) && isset($model->$attr)) {
+        return $attr;
+    }
+
+    if (isset($_SESSION['formData']) && isset($_SESSION['formData'][$attr])) {
+        $val = $_SESSION['formData'][$attr];
+        unset($_SESSION['formData'][$attr]);
+
+        return $val;
+    }
+
+    return '';
+}
+
+function form_err($attr)
+{
+    if (isset($_SESSION['flash']['error']) && isset($_SESSION['flash']['error'][$attr])) {
+        $err = $_SESSION['flash']['error'][$attr];
+        unset($_SESSION['flash']['error'][$attr]);
+
+        return "<div class=\"alert alert-danger\">{$err}</div>";
+    }
+}
