@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\models\Todo;
-use ErrorException;
 use Pecee\SimpleRouter\Exceptions\NotFoundHttpException;
 use Pecee\SimpleRouter\SimpleRouter;
 use RedBeanPHP\R;
