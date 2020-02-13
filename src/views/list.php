@@ -100,11 +100,14 @@
     </div>
 </div>
 
-
 <div class="col text-center">
     <hr>
     <br>
     <a href="<?= url('/todo/create') ?>" class="btn btn-outline-success">
         + Add Task
     </a>
+
+    <?php if (IS_ADMIN): ?>
+        <a style="color: red" href="/todo/purge" onclick="return confirm('Do you really want to remove all tasks?')">Clean todo list</a>
+    <?php endif; ?>
 </div>

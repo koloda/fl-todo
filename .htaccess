@@ -1,0 +1,7 @@
+RewriteEngine on
+
+# deny access to the application directory
+RewriteRule ^src/?  - [F]
+
+# route all requests to the public directory that aren't already there
+RewriteRule ^(?!public/)(.*)$   /public/index.php/$1  [L,QSA]

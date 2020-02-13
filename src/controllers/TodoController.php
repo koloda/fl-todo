@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Todo;
+use ErrorException;
 use Pecee\SimpleRouter\Exceptions\NotFoundHttpException;
 use Pecee\SimpleRouter\SimpleRouter;
 use RedBeanPHP\R;
@@ -13,7 +14,6 @@ class TodoController extends BaseController
 
     public function list()
     {
-
         //i know fat controllers is bad
         // and this sorting and paging logics must be in separate components
         // but for our case ... ))
@@ -93,6 +93,17 @@ class TodoController extends BaseController
                 return redirect('/todo/create');
             }
         }
+
+        return redirect('/');
+    }
+
+    public function purge()
+    {
+        if (!IS_ADMIN) {
+            return redirect('/auth/login');
+        }
+
+        R::hunt('todo');
 
         return redirect('/');
     }
